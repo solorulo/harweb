@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="start_session">Iniciar sesión</string>
+    <string name="forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="placeholder_username">Nombre de usuario / correo</string>
+    <string name="placeholder_password">Contraseña</string>
+    <string name="login_progress_signing_in">Iniciando sesión</string>
+
+</resources>

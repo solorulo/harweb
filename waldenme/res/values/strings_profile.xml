@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="dummy_profile_name">Moises Noe Luis Gonzalez</string>
+    <string name="dummy_profile_type">Básico</string>
+    <string name="dummy_date_added">Fecha de Alta: 13/09/14</string>
+    <string name="dummy_occupied_spaces">Espacios ocupados: 3</string>
+    <string name="expenses">Gastos</string>
+    <string name="historical">Historial</string>
+    <string name="date_added_format">Fecha de Alta: %02$d/%02$d/%02$d</string>
+    <string name="occupied_spaces_format">Espacios ocupados: %$d</string>
+
+</resources>

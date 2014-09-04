@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_section1">Perfil</string>
+    <string name="title_section2">Código QR</string>
+    <string name="title_section3">Mapa</string>
+    <string name="title_section4">Espacio</string>
+    <string name="title_section5">Servicio</string>
+    <string name="title_section6">Consumible</string>
+
+</resources>

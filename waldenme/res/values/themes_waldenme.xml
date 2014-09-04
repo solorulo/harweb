@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="waldenme" parent="@style/_waldenme" />
+    <style name="waldenme.NoActionBar" parent="@style/_waldenme.NoActionBar" />
+
+    <style name="_waldenme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:editTextBackground">@drawable/waldenme_edit_text_holo_light</item>
+        <item name="android:textColorHighlight">#99008fbe</item>
+        <item name="android:textSelectHandleLeft">@drawable/waldenme_text_select_handle_left</item>
+        <item name="android:textSelectHandleRight">@drawable/waldenme_text_select_handle_right</item>
+        <item name="android:textSelectHandle">@drawable/waldenme_text_select_handle_middle</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewwaldenme</item>
+        <item name="android:listChoiceIndicatorMultiple">@drawable/waldenme_btn_check_holo_light</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/waldenme_btn_radio_holo_light</item>
+        <item name="android:buttonStyle">@style/Buttonwaldenme</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonwaldenme</item>
+        <item name="android:dropDownSpinnerStyle">@style/Spinnerwaldenme</item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarwaldenme</item>
+        <item name="android:listChoiceBackgroundIndicator">@drawable/waldenme_list_selector_holo_light</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/waldenme_activated_background_holo_light</item>
+    </style>
+    
+    <style name="_waldenme.NoActionBar" parent="@android:style/Theme.Holo.Light.NoActionBar">
+        <item name="android:editTextBackground">@drawable/waldenme_edit_text_holo_light</item>
+        <item name="android:textColorHighlight">#99008fbe</item>
+        <item name="android:textSelectHandleLeft">@drawable/waldenme_text_select_handle_left</item>
+        <item name="android:textSelectHandleRight">@drawable/waldenme_text_select_handle_right</item>
+        <item name="android:textSelectHandle">@drawable/waldenme_text_select_handle_middle</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewwaldenme</item>
+        <item name="android:listChoiceIndicatorMultiple">@drawable/waldenme_btn_check_holo_light</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/waldenme_btn_radio_holo_light</item>
+        <item name="android:buttonStyle">@style/Buttonwaldenme</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonwaldenme</item>
+        <item name="android:dropDownSpinnerStyle">@style/Spinnerwaldenme</item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarwaldenme</item>
+        <item name="android:listChoiceBackgroundIndicator">@drawable/waldenme_list_selector_holo_light</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/waldenme_activated_background_holo_light</item>
+    </style>
+
+</resources>
