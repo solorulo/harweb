@@ -143,7 +143,6 @@ public class NavigationDrawerFragment extends Fragment {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View view = super.getView(position, convertView, parent);
-			
 			return view;
 		}
     	

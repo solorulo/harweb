@@ -14,7 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.waldenme.fragments.ConsumableFragment;
+import com.waldenme.fragments.ImageFragment;
 import com.waldenme.fragments.ProfileFragment;
+import com.waldenme.fragments.ServiceFragment;
+import com.waldenme.fragments.SpaceFragment;
 
 public class MainActivity extends FragmentActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -51,6 +55,26 @@ public class MainActivity extends FragmentActivity
     	switch (position+1) {
     	case 1: {
     		fragment = ProfileFragment.newInstance(position+1);
+    		break;
+    	}
+    	case 2: {
+    		fragment = ImageFragment.newInstance(position+1, R.drawable.dummy_qr);
+    		break;
+    	}
+    	case 3: {
+    		fragment = ImageFragment.newInstance(position+1, R.drawable.dummy_qr);
+    		break;
+    	}
+    	case 4: {
+    		fragment = SpaceFragment.newInstance(position+1);
+    		break;
+    	}
+    	case 5: {
+    		fragment = ServiceFragment.newInstance(position+1);
+    		break;
+    	}
+    	case 6: {
+    		fragment = ConsumableFragment.newInstance(position+1);
     		break;
     	}
     	default:
