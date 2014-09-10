@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-public class Away extends Activity {
+public class AwayActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

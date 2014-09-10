@@ -3,23 +3,26 @@ package com.waldenme.fragments;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import android.annotation.SuppressLint;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.waldenme.AwayActivity;
 import com.waldenme.MainActivity;
 import com.waldenme.R;
 
-@SuppressLint("ViewHolder")
 public class SpaceFragment extends Fragment {
 	private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -62,6 +65,16 @@ public class SpaceFragment extends Fragment {
 	public interface OnFragmentInteractionListener {
 		public void onFragmentInteraction(Uri uri);
 	}
+	
+	AdapterView.OnItemClickListener listListener = new AdapterView.OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			Intent intent = new Intent (getActivity(), AwayActivity.class);
+			startActivity(intent);
+		}
+	}; 
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,22 +82,29 @@ public class SpaceFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_space, container,
 				false);
 
-		String[] datos = new String[] { "Sala de juntas","Área de trabajo",
-				"Estudio de diseño","Taller de herramientas",
-				"Sala de cómputo","Sala creativa","Sala de juntas","Otra sala de juntas"
+		String[] datos = new String[] { 
+				getString(R.string.dummy_space1),
+				getString(R.string.dummy_space2),
+				getString(R.string.dummy_space3),
+				getString(R.string.dummy_space4),
+				getString(R.string.dummy_space5),
+				getString(R.string.dummy_space6),
+				getString(R.string.dummy_space7),
+				getString(R.string.dummy_space8),
 		};
 
 		ArrayList<String> list = new ArrayList<String>(Arrays.asList(datos));
-		setObj adapter = new setObj(getActivity(), 0, 0, list);
+		SpaceAdapter adapter = new SpaceAdapter(getActivity(), 0, 0, list);
 		ListView lv = (ListView) rootView.findViewById(R.id.list);
 		lv.setAdapter(adapter);
+		lv.setOnItemClickListener(listListener);
 		return rootView;
 
 	}
 
-	public class setObj extends ArrayAdapter<String> {
+	public class SpaceAdapter extends ArrayAdapter<String> {
 		Context ctx;	List<String> datos;	TextView txtView;	View rootV;
-		public setObj(Context context, int resource, int textViewResourceId,
+		public SpaceAdapter(Context context, int resource, int textViewResourceId,
 				List<String> objects) {
 			super(context, resource, textViewResourceId, objects);
 			datos = objects;	ctx = context;

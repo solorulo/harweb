@@ -10,6 +10,7 @@
 
   <style name="Buttonwaldenme" parent="android:Widget.Holo.Light.Button">
 	  <item name="android:background">@drawable/waldenme_btn_default_holo_light</item>
+	  <item name="android:textColor">@android:color/white</item>
   </style>
 
   <style name="ImageButtonwaldenme" parent="android:Widget.Holo.Light.ImageButton">

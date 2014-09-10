@@ -28,7 +28,7 @@
             android:label="@string/title_activity_main" >
         </activity>
         <activity
-            android:name=".Away"
+            android:name=".AwayActivity"
             android:label="@string/title_activity_away" >
         </activity>
     </application>
