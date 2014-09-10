@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="dummy_day1">Lunes,13</string>
+    <string name="dummy_day2">Martes,14</string>
+    <string name="dummy_day3">Miércoles,15</string>
+    <string name="dummy_day4">Jueves,16</string>
+    <string name="dummy_day5">Viernes,17</string>
+    <string name="dummy_day6">Sábado,18</string>
+    <string name="dummy_day7">Domingo,19</string>
+
+</resources>
