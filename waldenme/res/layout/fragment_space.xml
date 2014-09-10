@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:divider="@color/blue"
         android:dividerHeight="0.5dp"
-        android:padding="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:layout_height="wrap_content" >
     </ListView>
 
