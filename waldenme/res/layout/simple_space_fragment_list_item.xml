@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_height="wrap_content"
     android:layout_width="fill_parent"
-    >
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp" >
 
-<TextView
-    android:id="@android:id/text1"
-    android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
-    android:drawablePadding="20dp"
-    android:layout_marginLeft="20dp"
-    android:textAppearance="?android:attr/textAppearanceListItemSmall"
-    android:textColor="@color/blue"
-    android:text="prueba"
-    android:gravity="center_vertical"
-    android:background="@drawable/ab_background_textured_waldenme"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"
-/>
+    <TextView
+        android:id="@android:id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:layout_marginLeft="20dp"
+        android:drawablePadding="20dp"
+        android:gravity="center_vertical"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:text="prueba"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:textColor="@color/blue" />
 
 </LinearLayout>
 <!-- android:background="?android:attr/activatedBackgroundIndicator" -->

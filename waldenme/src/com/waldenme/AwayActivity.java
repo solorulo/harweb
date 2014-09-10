@@ -4,32 +4,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.waldenme.fragments.SpaceFragment.setObj;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-@SuppressLint("ViewHolder")
-public class Away extends Activity {
+public class AwayActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_away);
 		ListView lvw = (ListView) findViewById(R.id.lista_s);
-			String[] datos = new String[] {"Lunes,13","Martes,14","Miércoles,15",
-					"Jueves,16","Viernes,17","Sábado,18","Domingo,19"};
+			String[] datos = new String[] {"Lunes,13","Martes,14","Mi��rcoles,15",
+					"Jueves,16","Viernes,17","S��bado,18","Domingo,19"};
 
 			ArrayList<String> list = new ArrayList<String>(Arrays.asList(datos));
 			setObj adapter = new setObj(this, 0, 0, list);

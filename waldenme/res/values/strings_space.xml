@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="dummy_space1">Sala de juntas</string>
+    <string name="dummy_space2">Área de trabajo</string>
+    <string name="dummy_space3">Estudio de diseño</string>
+    <string name="dummy_space4">Taller de herramientas</string>
+    <string name="dummy_space5">Sala de cómputo</string>
+    <string name="dummy_space6">Sala creativa</string>
+    <string name="dummy_space7">Sala de juntas</string>
+    <string name="dummy_space8">Otra sala de juntas</string>
+
+</resources>
