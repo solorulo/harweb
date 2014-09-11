@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -131,7 +132,19 @@ public class StartActivity extends Activity {
 							HashMap<String, String> params = new HashMap<String, String>();
 							params.put("name", "Marshal");
 							params.put("pass", "1234");
-							new Comunicator().get(ip+"gac:mr_marshal_@_1234", null, new ResponseListener() {
+							
+							EditText etn=(EditText) loginLayout.findViewById(R.id.login_layout_user_txt);
+							EditText etp=(EditText) loginLayout.findViewById(R.id.login_layout_pass_txt);
+							
+							String name= etn.getText().toString();
+							String pass= etp.getText().toString();
+							
+							if ((name.trim().length()<1)||(pass.trim().length()<1)){
+								name="mr_marshal";
+								pass="1234";
+							}
+							
+							new Comunicator().get(ip+"gac:"+name+"_@_"+pass, null, new ResponseListener() {
 								
 								@Override
 								public void onResponseSuccess(String valueMessage) {
@@ -148,6 +161,7 @@ public class StartActivity extends Activity {
 								@Override
 								public void onResponseError(String errorMessage) {
 									Toast.makeText(getActivity().getApplicationContext(), "Error de Red", Toast.LENGTH_LONG).show();
+									showLogin.run();
 								}
 								
 								@Override
