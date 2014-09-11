@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="dummy_day1">Lunes,13</string>
-    <string name="dummy_day2">Martes,14</string>
-    <string name="dummy_day3">Miércoles,15</string>
-    <string name="dummy_day4">Jueves,16</string>
-    <string name="dummy_day5">Viernes,17</string>
-    <string name="dummy_day6">Sábado,18</string>
-    <string name="dummy_day7">Domingo,19</string>
+    <!-- "Enero", "Febrero", "Marzo", "Abril", "Mayo",
+				"Junio", "Julio", "Agosto", "Septiembre", "Octubre",
+				"Noviembre", "Diciembre" -->
+    <string name="dummy_day1">Sábado,18</string>
+    <string name="dummy_day2">Domingo,19</string>
+    <string name="dummy_day3">Lunes,13</string>
+    <string name="dummy_day4">Martes,14</string>
+    <string name="dummy_day5">Miércoles,15</string>
+    <string name="dummy_day6">Jueves,16</string>
+    <string name="dummy_day7">Viernes,17</string>
+    
+    <string name="dummy_month1">Enero</string>
+    <string name="dummy_month2">Febrero</string>
+    <string name="dummy_month3">Marzo</string>
+    <string name="dummy_month4">Abril</string>
+    <string name="dummy_month5">Mayo</string>
+    <string name="dummy_month6">Junio</string>
+    <string name="dummy_month7">Julio</string>
+    <string name="dummy_month8">Agosto</string>
+    <string name="dummy_month9">Septiembre</string>
+    <string name="dummy_month10">Octubre</string>
+    <string name="dummy_month11">Noviembre</string>
+    <string name="dummy_month12">Diciembre</string>
 
 </resources>

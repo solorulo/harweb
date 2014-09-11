@@ -32,7 +32,7 @@
             android:textColor="@color/blue" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/login_layout_user_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -43,7 +43,7 @@
             android:textColor="@color/blue" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/login_layout_pass_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
