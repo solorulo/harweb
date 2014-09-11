@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- "Enero", "Febrero", "Marzo", "Abril", "Mayo",
-				"Junio", "Julio", "Agosto", "Septiembre", "Octubre",
-				"Noviembre", "Diciembre" -->
     <string name="dummy_day1">Sábado,18</string>
     <string name="dummy_day2">Domingo,19</string>
     <string name="dummy_day3">Lunes,13</string>
@@ -24,5 +21,18 @@
     <string name="dummy_month10">Octubre</string>
     <string name="dummy_month11">Noviembre</string>
     <string name="dummy_month12">Diciembre</string>
+    
+    <string name="dummy_hours1">8&#8211;9</string>
+    <string name="dummy_hours2">9&#8211;10</string>
+    <string name="dummy_hours3">10&#8211;11</string>
+    <string name="dummy_hours4">11&#8211;12</string>
+    <string name="dummy_hours5">12&#8211;13</string>
+    <string name="dummy_hours6">13&#8211;14</string>
+    <string name="dummy_hours7">14&#8211;15</string>
+    <string name="dummy_hours8">15&#8211;16</string>
+    <string name="dummy_hours9">16&#8211;17</string>
+    <string name="dummy_hours10">17&#8211;18</string>
+    <string name="dummy_hours11">18&#8211;19</string>
+    <string name="dummy_hours12">19&#8211;20</string>
 
 </resources>

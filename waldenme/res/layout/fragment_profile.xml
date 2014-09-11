@@ -26,8 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="@string/dummy_profile_name"
-            android:textColor="@color/blue" />
+            android:text="@string/dummy_profile_name" />
         
     </LinearLayout>
     
@@ -52,15 +51,13 @@
             android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:text="@string/expenses"
-            android:textColor="@color/blue" />
+            android:text="@string/expenses" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$$$$$"
-            android:textColor="@color/blue" />
+            android:text="$$$$$" />
         
     </LinearLayout>
     
@@ -92,8 +89,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:text="@string/historical"
-            android:textColor="@color/blue" />
+            android:text="@string/historical" />
     </LinearLayout>
 
     <TextView
@@ -101,23 +97,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="@string/dummy_date_added"
-        android:textColor="@color/blue" />
+        android:text="@string/dummy_date_added" />
     
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="@string/dummy_profile_type"
-        android:textColor="@color/blue" />
+        android:text="@string/dummy_profile_type" />
     
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="@string/dummy_occupied_spaces"
-        android:textColor="@color/blue" />
+        android:text="@string/dummy_occupied_spaces" />
 
 </LinearLayout>

@@ -8,6 +8,7 @@
 
     <style name="_waldenme" parent="@android:style/Theme.Holo.Light">
         <item name="android:editTextBackground">@drawable/waldenme_edit_text_holo_light</item>
+        <item name="android:textColor">@color/blue</item>
         <item name="android:textColorHighlight">#99008fbe</item>
         <item name="android:textSelectHandleLeft">@drawable/waldenme_text_select_handle_left</item>
         <item name="android:textSelectHandleRight">@drawable/waldenme_text_select_handle_right</item>
@@ -25,6 +26,7 @@
     
     <style name="_waldenme.NoActionBar" parent="@android:style/Theme.Holo.Light.NoActionBar">
         <item name="android:editTextBackground">@drawable/waldenme_edit_text_holo_light</item>
+        <item name="android:textColor">@color/blue</item>
         <item name="android:textColorHighlight">#99008fbe</item>
         <item name="android:textSelectHandleLeft">@drawable/waldenme_text_select_handle_left</item>
         <item name="android:textSelectHandleRight">@drawable/waldenme_text_select_handle_right</item>

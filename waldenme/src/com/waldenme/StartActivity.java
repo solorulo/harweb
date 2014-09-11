@@ -1,8 +1,11 @@
 package com.waldenme;
 
 import java.util.HashMap;
+
 import com.waldenme.utilities.Comunicator;
 import com.waldenme.utilities.Comunicator.ResponseListener;
+
+import android.graphics.PorterDuff;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
@@ -17,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -85,6 +89,9 @@ public class StartActivity extends Activity {
             splashLayout = rootView.findViewById(R.id.splash_layout);
             loginLayout = rootView.findViewById(R.id.login_layout);
             loginProgressLayout = rootView.findViewById(R.id.login_status);
+
+            ProgressBar progress = (ProgressBar) loginProgressLayout.findViewById(R.id.progress);
+            progress.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.blue), PorterDuff.Mode.SRC_ATOP);
             return rootView;
         }
         
@@ -116,6 +123,7 @@ public class StartActivity extends Activity {
         public void onActivityCreated(Bundle savedInstanceState) {
         	super.onActivityCreated(savedInstanceState);
         	mActivity = getActivity();
+            
         	if (savedInstanceState == null) {
         		splashLayout.postDelayed(showLogin, 2500);
         	}

@@ -21,7 +21,6 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="10dp"
-            android:textColor="@color/blue"
             android:text="Fechas"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -32,7 +31,6 @@
             android:layout_below="@+id/away_activity_txt_Fecha"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:textColor="@color/blue"
             android:text="Elige un día"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -45,6 +43,7 @@
         android:paddingLeft="20dp"
         android:divider="@color/blue"
         android:dividerHeight="0.05dp"
+        android:choiceMode="singleChoice"
         android:layout_height="wrap_content"
         android:layout_above="@+id/away_activity_ly_btn"
         android:layout_below="@id/away_activity_ly_txt" >

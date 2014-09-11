@@ -24,7 +24,7 @@ public class AwayActivity extends Activity {
 		setContentView(R.layout.activity_away);
 		ListView lvw = (ListView) findViewById(R.id.lista_s);
 
-		findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+		findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
@@ -39,16 +39,16 @@ public class AwayActivity extends Activity {
 		setTitle("Reservar");
 
 		ArrayList<String> list = new ArrayList<String>(Arrays.asList(getDays()));
-		setObj adapter = new setObj(this, 0, 0, list);
-		lvw.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		setObj adapter = new setObj(this, android.R.layout.simple_list_item_single_choice, android.R.id.text1, list);
+//		lvw.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		lvw.setAdapter(adapter);
 	}
 
 	public class setObj extends ArrayAdapter<String> {
 		Context ctx;
 		List<String> datos;
-		TextView txtView, txtView2;
-		View rootV;
+//		TextView txtView, txtView2;
+		TextView rootV;
 
 		public setObj(Context context, int resource, int textViewResourceId,
 				List<String> objects) {
@@ -59,13 +59,14 @@ public class AwayActivity extends Activity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			LayoutInflater inflater = LayoutInflater.from(ctx);
-			rootV = inflater.inflate(R.layout.simple_away_activity_list_item,
-					null);
-			txtView = (TextView) rootV.findViewById(android.R.id.text1);
-			txtView2 = (TextView) rootV.findViewById(android.R.id.text2);
-			txtView.setText(datos.get(position).split(",")[0]);
-			txtView2.setText(datos.get(position).split(",")[1]);
+			rootV = (TextView)super.getView(position, convertView, parent);
+			
+			String f = String.format("%15s %3s", datos.get(position).split(",")[0], datos.get(position).split(",")[1]);
+			rootV.setText(f);
+//			txtView = (TextView) rootV.findViewById(android.R.id.text1);
+//			txtView2 = (TextView) rootV.findViewById(android.R.id.text2);
+//			txtView.setText(datos.get(position).split(",")[0]);
+//			txtView2.setText(datos.get(position).split(",")[1]);
 			return rootV;
 		}
 	}

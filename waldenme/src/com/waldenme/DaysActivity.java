@@ -72,6 +72,11 @@ public class DaysActivity extends Activity {
 	 */
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+		String[] days = new String[] { getString(R.string.dummy_day1),
+				getString(R.string.dummy_day2), getString(R.string.dummy_day3),
+				getString(R.string.dummy_day4), getString(R.string.dummy_day5),
+				getString(R.string.dummy_day6), getString(R.string.dummy_day7), };
+		
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
@@ -81,27 +86,28 @@ public class DaysActivity extends Activity {
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a PlaceholderFragment (defined as a static inner class
 			// below).
-			return PlaceholderFragment.newInstance(position + 1);
+			return HoursFragment.newInstance();
 		}
 
 		@Override
 		public int getCount() {
 			// Show 3 total pages.
-			return 3;
+			return days.length;
 		}
 
 		@Override
 		public CharSequence getPageTitle(int position) {
-			Locale l = Locale.getDefault();
-			switch (position) {
-			case 0:
-				return getString(R.string.title_section1).toUpperCase(l);
-			case 1:
-				return getString(R.string.title_section2).toUpperCase(l);
-			case 2:
-				return getString(R.string.title_section3).toUpperCase(l);
-			}
-			return null;
+//			Locale l = Locale.getDefault();
+			return days[position];
+//			switch (position) {
+//			case 0:
+//				return getString(R.string.title_section1).toUpperCase(l);
+//			case 1:
+//				return getString(R.string.title_section2).toUpperCase(l);
+//			case 2:
+//				return getString(R.string.title_section3).toUpperCase(l);
+//			}
+//			return null;
 		}
 	}
 
