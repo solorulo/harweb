@@ -1,17 +1,26 @@
 package com.waldenme;
 
+import java.util.HashMap;
+import com.waldenme.utilities.Comunicator;
+import com.waldenme.utilities.Comunicator.ResponseListener;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class StartActivity extends Activity {
-
+	static String ip="http://192.168.20.60:8080/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +35,23 @@ public class StartActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
-        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.start, menu);
+    	final Dialog dialog = new Dialog(StartActivity.this);
+    	dialog.setContentView(R.layout.cambia_ip_layout);
+		dialog.setTitle("IP");
+		
+		Button btn_ok_cambiar= (Button) dialog.findViewById(R.id.cambia_ip_btn);
+		final TextView txt_cambia_ip= (TextView) dialog.findViewById(R.id.cambia_ip_txt);
+		
+		btn_ok_cambiar.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				ip=txt_cambia_ip.getText().toString();
+				dialog.dismiss();
+			}
+		});
+		
+		dialog.show();
         return true;
     }
 
@@ -102,8 +125,37 @@ public class StartActivity extends Activity {
 				
 				@Override
 				public void onClick(View v) {
-					showProgress.run();
-					loginLayout.postDelayed(goToHome, 2000);
+					new Thread(){
+						public void run(){
+							showProgress.run();
+							HashMap<String, String> params = new HashMap<String, String>();
+							params.put("name", "Marshal");
+							params.put("pass", "1234");
+							new Comunicator().get(ip+"gac:mr_marshal_@_1234", null, new ResponseListener() {
+								
+								@Override
+								public void onResponseSuccess(String valueMessage) {
+									Log.i("Respuesta",valueMessage);
+									if (valueMessage.trim().equals("ok")){
+										loginLayout.postDelayed(goToHome, 1000);
+										Toast.makeText(getActivity().getApplicationContext(), "Bienvenido", Toast.LENGTH_LONG).show();
+									}else{
+										showLogin.run();
+										Toast.makeText(getActivity().getApplicationContext(), "Ha habido un error", Toast.LENGTH_LONG).show();
+									}
+								}
+								
+								@Override
+								public void onResponseError(String errorMessage) {
+									Toast.makeText(getActivity().getApplicationContext(), "Error de Red", Toast.LENGTH_LONG).show();
+								}
+								
+								@Override
+								public void onResponseEnd() {
+								}
+							});
+						}
+					}.run();
 				}
 			});;
         }

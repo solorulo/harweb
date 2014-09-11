@@ -1,9 +1,21 @@
 package com.waldenme.fragments;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +23,13 @@ import android.widget.ImageView;
 
 import com.waldenme.MainActivity;
 import com.waldenme.R;
+import com.waldenme.utilities.Comunicator;
+import com.waldenme.utilities.Comunicator.ResponseListener;
 
-/**
- * A simple {@link android.support.v4.app.Fragment} subclass. Activities that
- * contain this fragment must implement the
- * {@link ImageFragment.OnFragmentInteractionListener} interface to handle
- * interaction events. Use the {@link ImageFragment#newInstance} factory method
- * to create an instance of this fragment.
- * 
- */
 public class ImageFragment extends Fragment {
+
+	static String ip = "http://192.168.20.60:8080/";
+
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_IMG_URL = "param1";
@@ -30,7 +39,7 @@ public class ImageFragment extends Fragment {
 	// TODO: Rename and change types of parameters
 	private String urlImg;
 	private Integer mDummyResId;
-	
+
 	ImageView mImageView;
 
 	private OnFragmentInteractionListener mListener;
@@ -50,11 +59,11 @@ public class ImageFragment extends Fragment {
 		ImageFragment fragment = new ImageFragment();
 		Bundle args = new Bundle();
 		args.putString(ARG_IMG_URL, urImg);
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+		args.putInt(ARG_SECTION_NUMBER, sectionNumber);
 		fragment.setArguments(args);
 		return fragment;
 	}
-	
+
 	/**
 	 * Use this factory method to create a new instance of this fragment using
 	 * the provided parameters.
@@ -70,7 +79,7 @@ public class ImageFragment extends Fragment {
 		ImageFragment fragment = new ImageFragment();
 		Bundle args = new Bundle();
 		args.putInt(ARG_DUMMY_RSC, urImg);
-        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+		args.putInt(ARG_SECTION_NUMBER, sectionNumber);
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -83,7 +92,6 @@ public class ImageFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (getArguments() != null) {
-			urlImg = getArguments().getString(ARG_IMG_URL);
 			mDummyResId = getArguments().getInt(ARG_DUMMY_RSC);
 		}
 	}
@@ -92,19 +100,18 @@ public class ImageFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		View rootView = inflater.inflate(R.layout.fragment_image, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_start, container,
+				false);
+
+		rootView = inflater.inflate(R.layout.fragment_image, container, false);
 		mImageView = (ImageView) rootView.findViewById(R.id.imageView1);
+
 		return rootView;
 	}
-	
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
-		if (urlImg != null) {
-			// TODO Cargar imagen desde web
-		}
-		else {
-			mImageView.setImageResource(mDummyResId);
-		}
+		getQrImage();
 		super.onActivityCreated(savedInstanceState);
 	}
 
@@ -118,14 +125,14 @@ public class ImageFragment extends Fragment {
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(
-                getArguments().getInt(ARG_SECTION_NUMBER));
-//		try {
-//			mListener = (OnFragmentInteractionListener) activity;
-//		} catch (ClassCastException e) {
-//			throw new ClassCastException(activity.toString()
-//					+ " must implement OnFragmentInteractionListener");
-//		}
+		((MainActivity) activity).onSectionAttached(getArguments().getInt(
+				ARG_SECTION_NUMBER));
+		// try {
+		// mListener = (OnFragmentInteractionListener) activity;
+		// } catch (ClassCastException e) {
+		// throw new ClassCastException(activity.toString()
+		// + " must implement OnFragmentInteractionListener");
+		// }
 	}
 
 	@Override
@@ -146,6 +153,85 @@ public class ImageFragment extends Fragment {
 	public interface OnFragmentInteractionListener {
 		// TODO: Update argument type and name
 		public void onFragmentInteraction(Uri uri);
+	}
+
+	private void getQrImage() {
+		String path = Environment.getExternalStorageDirectory().toString();
+		File file = new File(path, "PruebaQR_waldenme.jpg");
+		if (file.exists()) {
+
+			Bitmap myBitmap = BitmapFactory.decodeFile(file
+					.getAbsolutePath());
+			mImageView.setImageBitmap(myBitmap);
+
+		} else {
+			new Comunicator().get(ip + "gqr:mr_marshal_@_1234", null,
+					new ResponseListener() {
+
+						@Override
+						public void onResponseSuccess(String valueMessage) {
+							urlImg = valueMessage.trim();// getArguments().getString(ARG_IMG_URL);
+							new DownloadImageTask(mImageView).execute(urlImg);
+							Log.i("Respuesta: ", valueMessage);
+						}
+
+						@Override
+						public void onResponseError(String errorMessage) {
+							Log.e("Error", "HTTP");
+						}
+
+						@Override
+						public void onResponseEnd() {
+							Log.i("Fin", "Peticion");
+						}
+					});
+		}
+	}
+
+	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+		ImageView bmImage;
+
+		public DownloadImageTask(ImageView bmImage) {
+			this.bmImage = bmImage;
+		}
+
+		protected Bitmap doInBackground(String... urls) {
+			String urldisplay = urls[0];
+			Bitmap mIcon11 = null;
+			try {
+				InputStream in = new java.net.URL(urldisplay).openStream();
+				mIcon11 = BitmapFactory.decodeStream(in);
+			} catch (Exception e) {
+				Log.e("Error", e.getMessage());
+				e.printStackTrace();
+			}
+			return mIcon11;
+		}
+
+		protected void onPostExecute(Bitmap result) {
+			bmImage.setImageBitmap(result);
+			try {
+				saveImage(result);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	protected void saveImage(Bitmap img) throws IOException {
+		String path = Environment.getExternalStorageDirectory().toString();
+		OutputStream fOut = null;
+		File file = new File(path, "PruebaQR_waldenme.jpg");
+		fOut = new FileOutputStream(file);
+
+		img.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
+		fOut.flush();
+		fOut.close();
+
+		MediaStore.Images.Media.insertImage(getActivity()
+				.getApplicationContext().getContentResolver(), file
+				.getAbsolutePath(), file.getName(), file.getName());
 	}
 
 }
