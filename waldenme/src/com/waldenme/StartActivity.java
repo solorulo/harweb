@@ -25,7 +25,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class StartActivity extends Activity {
-	static String ip="http://192.168.20.60:8080/";
+	
+	static String ip= Comunicator.ip;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,6 +136,7 @@ public class StartActivity extends Activity {
 				
 				@Override
 				public void onClick(View v) {
+					loginLayout.postDelayed(goToHome, 1000);
 					new Thread(){
 						public void run(){
 							showProgress.run();
@@ -152,30 +155,30 @@ public class StartActivity extends Activity {
 								pass="1234";
 							}
 							
-							new Comunicator().get(ip+"gac:"+name+"_@_"+pass, null, new ResponseListener() {
-								
-								@Override
-								public void onResponseSuccess(String valueMessage) {
-									Log.i("Respuesta",valueMessage);
-									if (valueMessage.trim().equals("ok")){
-										loginLayout.postDelayed(goToHome, 1000);
-										Toast.makeText(getActivity().getApplicationContext(), "Bienvenido", Toast.LENGTH_LONG).show();
-									}else{
-										showLogin.run();
-										Toast.makeText(getActivity().getApplicationContext(), "Ha habido un error", Toast.LENGTH_LONG).show();
-									}
-								}
-								
-								@Override
-								public void onResponseError(String errorMessage) {
-									Toast.makeText(getActivity().getApplicationContext(), "Error de Red", Toast.LENGTH_LONG).show();
-									showLogin.run();
-								}
-								
-								@Override
-								public void onResponseEnd() {
-								}
-							});
+//							new Comunicator().get(ip+"gac:"+name+"_@_"+pass, null, new ResponseListener() {
+//								
+//								@Override
+//								public void onResponseSuccess(String valueMessage) {
+//									Log.i("Respuesta",valueMessage);
+//									if (valueMessage.trim().equals("ok")){
+//										loginLayout.postDelayed(goToHome, 1000);
+//										Toast.makeText(getActivity().getApplicationContext(), "Bienvenido", Toast.LENGTH_LONG).show();
+//									}else{
+//										showLogin.run();
+//										Toast.makeText(getActivity().getApplicationContext(), "Ha habido un error", Toast.LENGTH_LONG).show();
+//									}
+//								}
+//								
+//								@Override
+//								public void onResponseError(String errorMessage) {
+//									Toast.makeText(getActivity().getApplicationContext(), "Error de Red", Toast.LENGTH_LONG).show();
+//									showLogin.run();
+//								}
+//								
+//								@Override
+//								public void onResponseEnd() {
+//								}
+//							});
 						}
 					}.run();
 				}

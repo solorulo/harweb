@@ -2,7 +2,11 @@ package com.waldenme.fragments;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +14,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +22,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.waldenme.AwayActivity;
 import com.waldenme.MainActivity;
 import com.waldenme.R;
+import com.waldenme.utilities.Comunicator;
+import com.waldenme.utilities.Comunicator.ResponseListener;
 
 public class SpaceFragment extends Fragment {
 	private static final String ARG_SECTION_NUMBER = "section_number";
@@ -80,22 +88,41 @@ public class SpaceFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_space, container,
 				false);
-
-		String[] datos = new String[] { 
-				getString(R.string.dummy_space1),
-				getString(R.string.dummy_space2),
-				getString(R.string.dummy_space3),
-				getString(R.string.dummy_space4),
-				getString(R.string.dummy_space5),
-				getString(R.string.dummy_space6),
-				getString(R.string.dummy_space7),
-				getString(R.string.dummy_space8),
-		};
-
-		ArrayList<String> list = new ArrayList<String>(Arrays.asList(datos));
-		SpaceAdapter adapter = new SpaceAdapter(getActivity(), 0, 0, list);
-		ListView lv = (ListView) rootView.findViewById(R.id.list);
-		lv.setAdapter(adapter);
+		Log.i("Haciendo","Peticion");
+		
+		final ArrayList<String> lista = new ArrayList<String>();
+		final ListView lv = (ListView) rootView.findViewById(R.id.list);
+		new Comunicator().get(Comunicator.ip+"/walden/app/android/espacios", null, new ResponseListener() {
+			
+			@Override
+			public void onResponseSuccess(String valueMessage) {
+				Log.i("JSON",valueMessage);
+				try {
+					JSONArray jsonA = new JSONArray(valueMessage);
+					for (int x=0; x<jsonA.length();x++){
+						String cosa= jsonA.getJSONObject(x).getString("nombre");
+						lista.add(cosa);
+					}
+					SpaceAdapter adapter = new SpaceAdapter(getActivity(), 0, 0, lista);
+					lv.setAdapter(adapter);
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			@Override
+			public void onResponseError(String errorMessage) {
+				Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+			}
+			
+			@Override
+			public void onResponseEnd() {
+				
+			}
+		});
+		
 		lv.setOnItemClickListener(listListener);
 		return rootView;
 

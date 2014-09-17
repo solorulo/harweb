@@ -44,6 +44,7 @@
         android:divider="@color/blue"
         android:dividerHeight="0.05dp"
         android:choiceMode="singleChoice"
+        
         android:layout_height="wrap_content"
         android:layout_above="@+id/away_activity_ly_btn"
         android:layout_below="@id/away_activity_ly_txt" >

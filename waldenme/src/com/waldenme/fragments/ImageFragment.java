@@ -28,8 +28,6 @@ import com.waldenme.utilities.Comunicator.ResponseListener;
 
 public class ImageFragment extends Fragment {
 
-	static String ip = "http://192.168.20.60:8080/";
-
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_IMG_URL = "param1";
@@ -165,7 +163,7 @@ public class ImageFragment extends Fragment {
 			mImageView.setImageBitmap(myBitmap);
 
 		} else {
-			new Comunicator().get(ip + "gqr:mr_marshal_@_1234", null,
+			new Comunicator().get(Comunicator.ip + "gqr:mr_marshal_@_1234", null,
 					new ResponseListener() {
 
 						@Override

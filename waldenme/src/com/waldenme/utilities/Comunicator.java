@@ -40,6 +40,8 @@ public class Comunicator {
 		public void onResponseEnd();
 	}
 	private static HttpClient client;
+
+	public static String ip = "http://marshal.domusmx.com";
 	
 	private static final String LOG_TAG = "comunicador";
 	/**
