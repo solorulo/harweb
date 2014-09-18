@@ -41,7 +41,7 @@ public class Comunicator {
 	}
 	private static HttpClient client;
 
-	public static String ip = "http://marshal.domusmx.com";
+	public static String ip = "http://marshal.domusmx.com/walden/app/android/";
 	
 	private static final String LOG_TAG = "comunicador";
 	/**

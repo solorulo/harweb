@@ -92,7 +92,7 @@ public class SpaceFragment extends Fragment {
 		
 		final ArrayList<String> lista = new ArrayList<String>();
 		final ListView lv = (ListView) rootView.findViewById(R.id.list);
-		new Comunicator().get(Comunicator.ip+"/walden/app/android/espacios", null, new ResponseListener() {
+		new Comunicator().get(Comunicator.ip+"espacios", null, new ResponseListener() {
 			
 			@Override
 			public void onResponseSuccess(String valueMessage) {

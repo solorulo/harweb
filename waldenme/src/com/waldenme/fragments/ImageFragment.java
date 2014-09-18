@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -20,11 +21,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.waldenme.MainActivity;
 import com.waldenme.R;
 import com.waldenme.utilities.Comunicator;
 import com.waldenme.utilities.Comunicator.ResponseListener;
+import com.waldenme.utilities.Preferences;
 
 public class ImageFragment extends Fragment {
 
@@ -163,26 +166,8 @@ public class ImageFragment extends Fragment {
 			mImageView.setImageBitmap(myBitmap);
 
 		} else {
-			new Comunicator().get(Comunicator.ip + "gqr:mr_marshal_@_1234", null,
-					new ResponseListener() {
-
-						@Override
-						public void onResponseSuccess(String valueMessage) {
-							urlImg = valueMessage.trim();// getArguments().getString(ARG_IMG_URL);
-							new DownloadImageTask(mImageView).execute(urlImg);
-							Log.i("Respuesta: ", valueMessage);
-						}
-
-						@Override
-						public void onResponseError(String errorMessage) {
-							Log.e("Error", "HTTP");
-						}
-
-						@Override
-						public void onResponseEnd() {
-							Log.i("Fin", "Peticion");
-						}
-					});
+			urlImg = Preferences.get("qr").trim().replace(' ', '_');// getArguments().getString(ARG_IMG_URL);
+			new DownloadImageTask(mImageView).execute(urlImg);
 		}
 	}
 
