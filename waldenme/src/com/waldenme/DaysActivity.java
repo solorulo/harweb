@@ -1,5 +1,6 @@
 package com.waldenme;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -44,11 +45,20 @@ public class DaysActivity extends Activity {
 	ViewPager mViewPager;
 
 	String id_space, day, month, year;
+	int start_pos;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_days);
+		initDate();
+
+		id_space = getIntent().getStringExtra("id_space");
+		day = getIntent().getStringExtra("day");
+		month = getIntent().getStringExtra("month");
+		year = getIntent().getStringExtra("year");
+		
+		start_pos = getIntent().getIntExtra("start_pos", 0);
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
@@ -57,11 +67,7 @@ public class DaysActivity extends Activity {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
-
-		id_space = getIntent().getStringExtra("id_space");
-		day = getIntent().getStringExtra("day");
-		month = getIntent().getStringExtra("month");
-		year = getIntent().getStringExtra("year");
+		mViewPager.setCurrentItem(start_pos);
 
 //		Toast.makeText(
 //				getApplicationContext(),
@@ -146,6 +152,45 @@ public class DaysActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	String[] days = new String[8];
+	String[] meses = new String[13];
+	
+	public String[] getDays() {
+		String[] rDays = new String[8];
+		Calendar calendar = Calendar.getInstance();
+		int aDayM= calendar.get(Calendar.DAY_OF_MONTH);
+		int aDayW;
+		for (int x=0;x<8;x++){
+			aDayW=calendar.get(Calendar.DAY_OF_WEEK)+x;
+			if (aDayW>6)
+				aDayW=aDayW-7;
+			rDays[x]=days[aDayW]+","+String.valueOf(aDayM+x);
+		}
+		return rDays;
+	}
+	
+	public void initDate(){
+		meses[0] = getString(R.string.dummy_month1);
+		meses[1] = getString(R.string.dummy_month2);
+		meses[2] = getString(R.string.dummy_month3);
+		meses[3] = getString(R.string.dummy_month4);
+		meses[4] = getString(R.string.dummy_month5);
+		meses[5] = getString(R.string.dummy_month6);
+		meses[6] = getString(R.string.dummy_month7);
+		meses[7] = getString(R.string.dummy_month8);
+		meses[8] = getString(R.string.dummy_month9);
+		meses[9] = getString(R.string.dummy_month10);
+		meses[10] = getString(R.string.dummy_month11);
+		meses[11] = getString(R.string.dummy_month12);
+		
+		days[0]=getString(R.string.dummy_day1);
+		days[1]=getString(R.string.dummy_day2);
+		days[2]=getString(R.string.dummy_day3);
+		days[3]=getString(R.string.dummy_day4);
+		days[4]=getString(R.string.dummy_day5);
+		days[5]=getString(R.string.dummy_day6);
+		days[6]=getString(R.string.dummy_day7);
+	}
 
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -153,10 +198,7 @@ public class DaysActivity extends Activity {
 	 */
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-		String[] days = new String[] { getString(R.string.dummy_day1),
-				getString(R.string.dummy_day2), getString(R.string.dummy_day3),
-				getString(R.string.dummy_day4), getString(R.string.dummy_day5),
-				getString(R.string.dummy_day6), getString(R.string.dummy_day7), };
+		String[] days = getDays();
 
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
@@ -180,15 +222,6 @@ public class DaysActivity extends Activity {
 		public CharSequence getPageTitle(int position) {
 			// Locale l = Locale.getDefault();
 			return days[position];
-			// switch (position) {
-			// case 0:
-			// return getString(R.string.title_section1).toUpperCase(l);
-			// case 1:
-			// return getString(R.string.title_section2).toUpperCase(l);
-			// case 2:
-			// return getString(R.string.title_section3).toUpperCase(l);
-			// }
-			// return null;
 		}
 	}
 

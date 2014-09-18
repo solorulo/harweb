@@ -25,6 +25,7 @@ public class AwayActivity extends Activity {
 	String id_space, day, month, year;
 	String[] days = new String[8];
 	String[] meses = new String[13];
+	int selectedPos = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,15 @@ public class AwayActivity extends Activity {
 				intent.putExtra("day", day);
 				intent.putExtra("month", month);
 				intent.putExtra("year", year);
+				intent.putExtra("start_pos", selectedPos);
 				startActivity(intent);
+			}
+		});
+		findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();
 			}
 		});
 		
@@ -88,6 +97,7 @@ public class AwayActivity extends Activity {
 						}
 					}
 					day= datos.get(position).split(",")[1];
+					selectedPos = position;
 				}
 			});
 			txtView.setText(datos.get(position).split(",")[0]);
@@ -111,8 +121,10 @@ public class AwayActivity extends Activity {
 		int aDayW;
 		for (int x=0;x<8;x++){
 			aDayW=calendar.get(Calendar.DAY_OF_WEEK)+x;
-			if (aDayW>6)
+			if (aDayW>6){
 				aDayW=aDayW-7;
+				calendar.add(Calendar.WEEK_OF_YEAR, 1);
+			}
 			rDays[x]=days[aDayW]+","+String.valueOf(aDayM+x);
 		}
 		return rDays;

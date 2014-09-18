@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="dummy_day1">Sábado,18</string>
-    <string name="dummy_day2">Domingo,19</string>
-    <string name="dummy_day3">Lunes,13</string>
-    <string name="dummy_day4">Martes,14</string>
-    <string name="dummy_day5">Miércoles,15</string>
-    <string name="dummy_day6">Jueves,16</string>
-    <string name="dummy_day7">Viernes,17</string>
+    <string name="dummy_day1">Sábado</string>
+    <string name="dummy_day2">Domingo</string>
+    <string name="dummy_day3">Lunes</string>
+    <string name="dummy_day4">Martes</string>
+    <string name="dummy_day5">Miércoles</string>
+    <string name="dummy_day6">Jueves</string>
+    <string name="dummy_day7">Viernes</string>
     
     <string name="dummy_month1">Enero</string>
     <string name="dummy_month2">Febrero</string>
