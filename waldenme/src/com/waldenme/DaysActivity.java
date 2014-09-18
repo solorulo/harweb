@@ -1,19 +1,31 @@
 package com.waldenme;
 
+import java.util.HashMap;
 import java.util.Locale;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.waldenme.utilities.Comunicator;
+import com.waldenme.utilities.Comunicator.ResponseListener;
+import com.waldenme.utilities.Preferences;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DaysActivity extends Activity {
 
@@ -31,6 +43,8 @@ public class DaysActivity extends Activity {
 	 */
 	ViewPager mViewPager;
 
+	String id_space, day, month, year;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,6 +58,73 @@ public class DaysActivity extends Activity {
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
+		id_space = getIntent().getStringExtra("id_space");
+		day = getIntent().getStringExtra("day");
+		month = getIntent().getStringExtra("month");
+		year = getIntent().getStringExtra("year");
+
+//		Toast.makeText(
+//				getApplicationContext(),
+//				"Id: " + id_space + "\nDay: " + day + "\nMonth: " + month
+//						+ "\nYear: " + year, Toast.LENGTH_SHORT).show();
+		findViewById(R.id.activity_days_btn_ok).setOnClickListener(
+				new View.OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						HashMap<String, String> params = new HashMap<String, String>();
+						params.put("r", "apartar");
+						params.put("user_id",Preferences.get("user_id"));
+						params.put("space_id", id_space);
+						params.put("hours", "3");
+						params.put("date",year+"-"+month+"-"+day);
+						
+						new Comunicator().post(Comunicator.ip, params, new ResponseListener() {
+							
+							@Override
+							public void onResponseSuccess(String valueMessage) {
+								Log.i("Respuesta apartado: ",valueMessage);
+								if (valueMessage.trim().equals("Ok")){
+									Toast.makeText(getApplicationContext(), "Espacio reservado.", Toast.LENGTH_SHORT).show();
+									Intent intent = new Intent(DaysActivity.this,
+											MainActivity.class);
+									startActivity(intent);
+								}else
+									try{ 
+										if (new JSONArray(valueMessage).get(0)!=null) {
+											JSONArray jsonA = new JSONArray(
+													valueMessage);
+											if (jsonA.getJSONObject(0).getString("user_id").trim().equals(Preferences.get("user_id"))){
+												Toast.makeText(getApplicationContext(), "Ya has reservado este espacio.", Toast.LENGTH_SHORT).show();
+											}else{
+												Toast.makeText(getApplicationContext(), "Este espacio ya está reservado.", Toast.LENGTH_SHORT).show();
+											}
+										}
+									}catch (Exception e) {
+										// TODO: handle exception
+									}
+							}
+							
+							@Override
+							public void onResponseError(String errorMessage) {
+								
+							}
+							
+							@Override
+							public void onResponseEnd() {}
+						});
+					}
+				});
+		
+		findViewById(R.id.activity_days_btn_cancel).setOnClickListener( new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent (DaysActivity.this, AwayActivity.class);
+				intent.putExtra("id_space", id_space);
+				startActivity(intent);
+			}
+		});
 	}
 
 	@Override
@@ -76,7 +157,7 @@ public class DaysActivity extends Activity {
 				getString(R.string.dummy_day2), getString(R.string.dummy_day3),
 				getString(R.string.dummy_day4), getString(R.string.dummy_day5),
 				getString(R.string.dummy_day6), getString(R.string.dummy_day7), };
-		
+
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
@@ -97,17 +178,17 @@ public class DaysActivity extends Activity {
 
 		@Override
 		public CharSequence getPageTitle(int position) {
-//			Locale l = Locale.getDefault();
+			// Locale l = Locale.getDefault();
 			return days[position];
-//			switch (position) {
-//			case 0:
-//				return getString(R.string.title_section1).toUpperCase(l);
-//			case 1:
-//				return getString(R.string.title_section2).toUpperCase(l);
-//			case 2:
-//				return getString(R.string.title_section3).toUpperCase(l);
-//			}
-//			return null;
+			// switch (position) {
+			// case 0:
+			// return getString(R.string.title_section1).toUpperCase(l);
+			// case 1:
+			// return getString(R.string.title_section2).toUpperCase(l);
+			// case 2:
+			// return getString(R.string.title_section3).toUpperCase(l);
+			// }
+			// return null;
 		}
 	}
 

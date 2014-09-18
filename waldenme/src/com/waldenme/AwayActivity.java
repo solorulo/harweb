@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
@@ -23,18 +22,26 @@ import android.widget.TextView;
 public class AwayActivity extends Activity {
 	
 	RadioButton[] chss = new RadioButton[10];
+	String id_space, day, month, year;
+	String[] days = new String[8];
+	String[] meses = new String[13];
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_away);
 		ListView lvw = (ListView) findViewById(R.id.lista_s);
-
+		id_space = getIntent().getStringExtra("id_space");
+		initDate();
 		findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(AwayActivity.this, DaysActivity.class);
+				intent.putExtra("id_space", id_space);
+				intent.putExtra("day", day);
+				intent.putExtra("month", month);
+				intent.putExtra("year", year);
 				startActivity(intent);
 			}
 		});
@@ -46,7 +53,6 @@ public class AwayActivity extends Activity {
 
 		ArrayList<String> list = new ArrayList<String>(Arrays.asList(getDays()));
 		setObj adapter = new setObj(this, 0,0, list);
-//		lvw.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		lvw.setAdapter(adapter);
 	}
 
@@ -81,6 +87,7 @@ public class AwayActivity extends Activity {
 								chss[x].setChecked(false);
 						}
 					}
+					day= datos.get(position).split(",")[1];
 				}
 			});
 			txtView.setText(datos.get(position).split(",")[0]);
@@ -91,23 +98,13 @@ public class AwayActivity extends Activity {
 	
 	public String getDate() {
 		Calendar calendar = Calendar.getInstance();
-		int month = calendar.get(Calendar.MONTH);
-		String year = String.valueOf(calendar.get(Calendar.YEAR));
-		String[] meses = { 
-				getString(R.string.dummy_month1), getString(R.string.dummy_month2),
-				getString(R.string.dummy_month3), getString(R.string.dummy_month4),
-				getString(R.string.dummy_month5), getString(R.string.dummy_month6),
-				getString(R.string.dummy_month7), getString(R.string.dummy_month8),
-				getString(R.string.dummy_month9), getString(R.string.dummy_month10),
-				getString(R.string.dummy_month11), getString(R.string.dummy_month12), };
-		return meses[month]+" "+year;
+		int month_int = calendar.get(Calendar.MONTH);
+		year = String.valueOf(calendar.get(Calendar.YEAR));
+		month=String.valueOf(month_int+1);
+		return meses[month_int]+" "+year;
 	}
 	
 	public String[] getDays() {
-		String[] days = new String[] { getString(R.string.dummy_day1),
-				getString(R.string.dummy_day2), getString(R.string.dummy_day3),
-				getString(R.string.dummy_day4), getString(R.string.dummy_day5),
-				getString(R.string.dummy_day6), getString(R.string.dummy_day7), };
 		String[] rDays = new String[8];
 		Calendar calendar = Calendar.getInstance();
 		int aDayM= calendar.get(Calendar.DAY_OF_MONTH);
@@ -119,5 +116,28 @@ public class AwayActivity extends Activity {
 			rDays[x]=days[aDayW]+","+String.valueOf(aDayM+x);
 		}
 		return rDays;
+	}
+	
+	public void initDate(){
+		meses[0] = getString(R.string.dummy_month1);
+		meses[1] = getString(R.string.dummy_month2);
+		meses[2] = getString(R.string.dummy_month3);
+		meses[3] = getString(R.string.dummy_month4);
+		meses[4] = getString(R.string.dummy_month5);
+		meses[5] = getString(R.string.dummy_month6);
+		meses[6] = getString(R.string.dummy_month7);
+		meses[7] = getString(R.string.dummy_month8);
+		meses[8] = getString(R.string.dummy_month9);
+		meses[9] = getString(R.string.dummy_month10);
+		meses[10] = getString(R.string.dummy_month11);
+		meses[11] = getString(R.string.dummy_month12);
+		
+		days[0]=getString(R.string.dummy_day1);
+		days[1]=getString(R.string.dummy_day2);
+		days[2]=getString(R.string.dummy_day3);
+		days[3]=getString(R.string.dummy_day4);
+		days[4]=getString(R.string.dummy_day5);
+		days[5]=getString(R.string.dummy_day6);
+		days[6]=getString(R.string.dummy_day7);
 	}
 }

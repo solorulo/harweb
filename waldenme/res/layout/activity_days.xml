@@ -1,18 +1,44 @@
-<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.waldenme.DaysActivity" >
 
-    <android.support.v4.view.PagerTitleStrip
-        android:id="@+id/pager_title_strip"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:background="@color/light_blue"
-        android:paddingBottom="4dp"
-        android:paddingTop="4dp"
-        android:textColor="@color/blue" />
+        android:layout_above="@+id/contenedor_btns" >
 
-</android.support.v4.view.ViewPager>
+        <android.support.v4.view.PagerTitleStrip
+            android:id="@+id/pager_title_strip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="@color/light_blue"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:textColor="@color/blue" />
+    </android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:id="@+id/contenedor_btns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" >
+
+        <Button
+            android:id="@+id/activity_days_btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancelar" />
+
+        <Button
+            android:id="@+id/activity_days_btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ok" />
+    </LinearLayout>
+
+</RelativeLayout>

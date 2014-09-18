@@ -14,9 +14,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.style.SuperscriptSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -88,7 +90,6 @@ public class SpaceFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_space, container,
 				false);
-		Log.i("Haciendo","Peticion");
 		
 		final ArrayList<String> lista = new ArrayList<String>();
 		final ListView lv = (ListView) rootView.findViewById(R.id.list);
@@ -100,7 +101,7 @@ public class SpaceFragment extends Fragment {
 				try {
 					JSONArray jsonA = new JSONArray(valueMessage);
 					for (int x=0; x<jsonA.length();x++){
-						String cosa= jsonA.getJSONObject(x).getString("nombre");
+						String cosa= jsonA.getJSONObject(x).getString("nombre")+";"+jsonA.getJSONObject(x).getString("idEspacio");
 						lista.add(cosa);
 					}
 					SpaceAdapter adapter = new SpaceAdapter(getActivity(), 0, 0, lista);
@@ -136,11 +137,19 @@ public class SpaceFragment extends Fragment {
 			datos = objects;	ctx = context;
 		}
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView, ViewGroup parent) {
 			LayoutInflater inflater = LayoutInflater.from(ctx);
 			rootV = inflater.inflate(R.layout.simple_space_fragment_list_item, null);
 			txtView = (TextView) rootV.findViewById(android.R.id.text1);
-			txtView.setText(datos.get(position));
+			txtView.setText(datos.get(position).split(";")[0]);
+			txtView.setOnClickListener(new OnClickListener() {				
+				@Override
+				public void onClick(View arg0) {
+					Intent intent = new Intent (getActivity(), AwayActivity.class);
+					intent.putExtra("id_space", datos.get(position).split(";")[1]);
+					startActivity(intent);
+				}
+			});
 			return rootV;
 		}
 	}

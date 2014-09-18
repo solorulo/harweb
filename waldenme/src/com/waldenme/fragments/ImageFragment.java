@@ -158,7 +158,7 @@ public class ImageFragment extends Fragment {
 
 	private void getQrImage() {
 		String path = Environment.getExternalStorageDirectory().toString();
-		File file = new File(path, "PruebaQR_waldenme.jpg");
+		File file = new File(path, "WaldenMe/QR.jpg");
 		if (file.exists()) {
 
 			Bitmap myBitmap = BitmapFactory.decodeFile(file
@@ -205,7 +205,7 @@ public class ImageFragment extends Fragment {
 	protected void saveImage(Bitmap img) throws IOException {
 		String path = Environment.getExternalStorageDirectory().toString();
 		OutputStream fOut = null;
-		File file = new File(path, "PruebaQR_waldenme.jpg");
+		File file = new File(path, "WaldenMe/QR.jpg");
 		fOut = new FileOutputStream(file);
 
 		img.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
