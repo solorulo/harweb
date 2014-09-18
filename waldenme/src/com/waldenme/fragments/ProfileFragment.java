@@ -1,14 +1,29 @@
 package com.waldenme.fragments;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.waldenme.MainActivity;
 import com.waldenme.R;
+import com.waldenme.utilities.Preferences;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass. Use the
@@ -17,6 +32,10 @@ import com.waldenme.R;
  * 
  */
 public class ProfileFragment extends Fragment {
+	
+	ImageView mImageView;
+	String urlImg;
+	
 	/**
      * The fragment argument representing the section number for this
      * fragment.
@@ -67,7 +86,14 @@ public class ProfileFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_profile, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_profile, container,
+				false);
+		((TextView) rootView.findViewById(R.id.profile_activity_txt_nombre)).setText(Preferences.get("name")+" "+Preferences.get("lastNP")+" "+Preferences.get("lastNM"));
+		((TextView) rootView.findViewById(R.id.profile_activity_txt_fechaAlta)).setText("Fecha de alta: "+Preferences.get("date_added").substring(0, 10));
+		((TextView) rootView.findViewById(R.id.profile_activity_txt_credito)).setText("$ "+Preferences.get("credit")+" M.N.");
+		mImageView = (ImageView) rootView.findViewById(R.id.profile_fragment_img_profilePicture);
+		getProfileImage();
+		return rootView;
 	}
 	
 	@Override
@@ -76,5 +102,67 @@ public class ProfileFragment extends Fragment {
         ((MainActivity) activity).onSectionAttached(
                 getArguments().getInt(ARG_SECTION_NUMBER));
     }
+	
+	private void getProfileImage() {
+		String path = Environment.getExternalStorageDirectory().toString();
+		File file = new File(path, "WaldenMe/"+Preferences.get("user")+"/Face.jpg");
+		if (file.exists()) {
+
+			Bitmap myBitmap = BitmapFactory.decodeFile(file
+					.getAbsolutePath());
+			mImageView.setImageBitmap(myBitmap);
+
+		} else {
+//			urlImg ="http://www.laredso.com/wp-content/uploads/Brad-Pitt-1.jpg";
+			urlImg= Preferences.get("photo").trim().replace(' ', '_');// getArguments().getString(ARG_IMG_URL);
+			new DownloadImageTask(mImageView).execute(urlImg);
+		}
+	}
+
+	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+		ImageView bmImage;
+
+		public DownloadImageTask(ImageView bmImage) {
+			this.bmImage = bmImage;
+		}
+
+		protected Bitmap doInBackground(String... urls) {
+			String urldisplay = urls[0];
+			Bitmap mIcon11 = null;
+			try {
+				InputStream in = new java.net.URL(urldisplay).openStream();
+				mIcon11 = BitmapFactory.decodeStream(in);
+			} catch (Exception e) {
+				Log.e("Error", e.getMessage());
+				e.printStackTrace();
+			}
+			return mIcon11;
+		}
+
+		protected void onPostExecute(Bitmap result) {
+			bmImage.setImageBitmap(result);
+			try {
+				saveImage(result);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	protected void saveImage(Bitmap img) throws IOException {
+		String path = Environment.getExternalStorageDirectory().toString();
+		OutputStream fOut = null;
+		File file = new File(path, "WaldenMe/"+Preferences.get("user")+"/Face.jpg");
+		fOut = new FileOutputStream(file);
+
+		img.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
+		fOut.flush();
+		fOut.close();
+
+		MediaStore.Images.Media.insertImage(getActivity()
+				.getApplicationContext().getContentResolver(), file
+				.getAbsolutePath(), file.getName(), file.getName());
+	}
 
 }

@@ -14,13 +14,18 @@ import org.json.JSONObject;
 import android.os.Environment;
 
 public class Preferences {
-	static String config_path = "WaldenMe/config.txt";
+	static String path = "WaldenMe/";
 
-	public Preferences() {
+	public Preferences(String usr) {
 		File tarjeta = Environment.getExternalStorageDirectory();
-		File file = new File(tarjeta.getAbsolutePath() + "/WaldenMe");
+		File file = new File(tarjeta.getAbsolutePath() + "/WaldenMe/");
+		File user = new File(tarjeta.getAbsolutePath() + "/"+"WaldenMe/"+usr);
+		path="WaldenMe/"+usr+"/config.txt";
 		if (!file.exists()) {
 			file.mkdir();
+		}
+		if (!user.exists()) {
+			user.mkdir();
 		}
 	}
 
@@ -61,14 +66,14 @@ public class Preferences {
 	
 	public static void set(String campo, String dato){
 		try {
-			String leido= leer(config_path);
+			String leido= leer(path);
 			JSONObject json;
 			if (leido=="")
 				json = new JSONObject();
 			else
 				json = new JSONObject(leido);
 			json.put(campo, dato);
-			guardar(config_path, json.toString());
+			guardar(path, json.toString());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,7 +83,7 @@ public class Preferences {
 	
 	public static String get(String campo) {
 		try {
-			JSONObject json = new JSONObject(leer(config_path));
+			JSONObject json = new JSONObject(leer(path));
 			return json.get(campo).toString();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

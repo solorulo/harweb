@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.waldenme.fragments.ConsumableFragment;
 import com.waldenme.fragments.ImageFragment;
+import com.waldenme.fragments.MapFragment;
 import com.waldenme.fragments.ProfileFragment;
 import com.waldenme.fragments.ServiceFragment;
 import com.waldenme.fragments.SpaceFragment;
@@ -62,7 +63,7 @@ public class MainActivity extends FragmentActivity
     		break;
     	}
     	case 3: {
-    		fragment = ImageFragment.newInstance(position+1, R.drawable.dummy_qr);
+    		fragment = MapFragment.newInstance(position+1, R.drawable.dummy_qr);
     		break;
     	}
     	case 4: {
